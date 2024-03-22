@@ -10,9 +10,14 @@ class WatermarkWidget extends StatelessWidget {
   WatermarkWidget({
     super.key,
     required this.fontSize,
+    required this.barHight,
+    required this.logoSize,
   });
 
   var fontSize = 12.0.obs;
+  var barHight = 48.0.obs;
+  var logoSize = 18.0.obs;
+
   final fontColor = Colors.black;
   final barColor = Colors.white;
 
@@ -20,7 +25,7 @@ class WatermarkWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: barColor,
-      height: 48.0,
+      height: barHight.value,
       width: 100.w,
       child: Row(
         children: [
@@ -28,35 +33,33 @@ class WatermarkWidget extends StatelessWidget {
             padding: const EdgeInsets.only(
               left: 16.0,
             ),
-            child: Obx(
-              () => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Google Pixel 7a",
-                    style: TextStyle(
-                      color: fontColor,
-                      fontSize: fontSize.value,
-                      fontWeight: FontWeight.bold,
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Google Pixel 7a",
+                  style: TextStyle(
+                    color: fontColor,
+                    fontSize: fontSize.value,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    "2024.03.18 17:26:45",
-                    style: TextStyle(
-                      color: fontColor,
-                      fontSize: fontSize.value - 4.0,
-                    ),
+                ),
+                Text(
+                  "2024.03.18 17:26:45",
+                  style: TextStyle(
+                    color: fontColor,
+                    fontSize: fontSize.value - 4.0,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           const Spacer(),
-          const SizedBox(
-            width: 18.0,
-            height: 18.0,
-            child: GoogleLogo(),
+          SizedBox(
+            width: logoSize.value,
+            height: logoSize.value,
+            child: const GoogleLogo(),
           ),
           const SizedBox(
             width: 10.0,

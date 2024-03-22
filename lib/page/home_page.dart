@@ -8,17 +8,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sizer/sizer.dart';
-import 'package:watermark_for_pixel/widget/watermark_widget.dart';
 
-import '../common/image_picker.dart';
+import 'package:watermark_for_pixel/common/constant.dart';
+import 'package:watermark_for_pixel/common/image_picker.dart';
+import 'package:watermark_for_pixel/widget/watermark_widget.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   var imagePath = "".obs;
+
+  GetStorage storage = GetStorage();
 
   // 获取截图组件的key
   final GlobalKey _repaintKey = GlobalKey();
@@ -52,6 +56,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint("Home");
+
+    final fontSize = storage.read(Constant.kFontSize);
+    final barHight = storage.read(Constant.kBarHight);
+    final logoSize = storage.read(Constant.kLogoSize);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Pixel Watermark"),
@@ -85,7 +94,15 @@ class HomePage extends StatelessWidget {
                             ),
                     ),
                     WatermarkWidget(
-                      fontSize: RxDouble(14.0),
+                      fontSize: fontSize != null
+                          ? RxDouble(fontSize)
+                          : RxDouble(14.0),
+                      barHight: barHight != null
+                          ? RxDouble(barHight)
+                          : RxDouble(48.0),
+                      logoSize: logoSize != null
+                          ? RxDouble(logoSize)
+                          : RxDouble(18.0),
                     ),
                     Container(
                       height: 100.0,

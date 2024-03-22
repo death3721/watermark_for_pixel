@@ -19,14 +19,13 @@ dependencies:
   get: ^4.6.6
   permission_handler: ^11.3.0
   image_gallery_saver:
+  # for permission demo
   baseflow_plugin_template: ^2.1.2
-
-
+  get_storage: ^2.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
   flutter_lints: ^3.0.0
 

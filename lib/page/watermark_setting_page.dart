@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:watermark_for_pixel/common/constant.dart';
 import 'package:watermark_for_pixel/widget/watermark_widget.dart';
+import 'package:get_storage/get_storage.dart';
 
 class WatermarkSettingPage extends StatelessWidget {
   WatermarkSettingPage({super.key});
@@ -12,8 +14,13 @@ class WatermarkSettingPage extends StatelessWidget {
   final barHightProgress = 48.0.obs;
   final logoSizeProgress = 18.0.obs;
 
+  GetStorage storage = GetStorage();
+
   @override
   Widget build(BuildContext context) {
+    final fontSize = storage.read(Constant.kFontSize);
+    final barHight = storage.read(Constant.kBarHight);
+    final logoSize = storage.read(Constant.kLogoSize);
     return Container(
       color: Colors.grey.shade200,
       height: 50.h,
@@ -25,9 +32,10 @@ class WatermarkSettingPage extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(20, 30, 20, 16),
               child: WatermarkWidget(
                 fontSize: fontSizeProgress,
+                barHight: barHightProgress,
+                logoSize: logoSizeProgress,
               ),
             ),
-            Text("$fontSizeProgress"),
             Container(
               alignment: Alignment.centerLeft,
               margin: const EdgeInsets.only(left: 20.0),
@@ -46,6 +54,7 @@ class WatermarkSettingPage extends StatelessWidget {
                 label: '$fontSizeProgress',
                 onChanged: (value) {
                   fontSizeProgress.value = value;
+                  storage.write(Constant.kFontSize, value);
                 },
               ),
             ),
@@ -67,6 +76,7 @@ class WatermarkSettingPage extends StatelessWidget {
                 label: '$barHightProgress',
                 onChanged: (value) {
                   barHightProgress.value = value;
+                  storage.write(Constant.kBarHight, value);
                 },
               ),
             ),
@@ -88,6 +98,7 @@ class WatermarkSettingPage extends StatelessWidget {
                 label: '$logoSizeProgress',
                 onChanged: (value) {
                   logoSizeProgress.value = value;
+                  storage.write(Constant.kLogoSize, value);
                 },
               ),
             ),
