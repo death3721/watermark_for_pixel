@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, avoid_print
 
 import 'dart:io';
 import 'dart:typed_data';
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
   final GlobalKey _repaintKey = GlobalKey();
 
   // 获取截取图片的二进制数据
-  Future<Uint8List> _getImageData() async {
+  Future<Uint8List> _getCurrentImageData() async {
     BuildContext? buildContext = _repaintKey.currentContext;
 
     RenderRepaintBoundary boundary =
@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
       // 延时一定时间后，boundary.debugNeedsPaint 会变为 false，然后可以正常执行截图的功能
       await Future.delayed(const Duration(milliseconds: 20));
       // 重新调用方法
-      return _getImageData();
+      return _getCurrentImageData();
     }
     // 获取当前设备的像素比
     double dpr = ui.PlatformDispatcher.instance.implicitView!.devicePixelRatio;
@@ -119,18 +119,12 @@ class HomePage extends StatelessWidget {
           const Spacer(),
           FloatingActionButton(
             onPressed: () async {
-              // Uint8List data = await _getImageData();
-              // _images.add(data);
-              /// 执行存储图片到本地相册
-              ///
-              Uint8List data = await _getImageData();
-              await ImageGallerySaver.saveImage(data);
-              // 如果用户已授权存储权限
+              // if the user have given the permission
               if (await Permission.storage.request().isGranted) {
                 print("have Permission");
-              } else {
-                // 没有存储权限时，弹出没有存储权限的弹窗
-                print("NO Permission");
+                // save the photo into gallary
+                Uint8List data = await _getCurrentImageData();
+                await ImageGallerySaver.saveImage(data);
               }
             },
             child: const Icon(

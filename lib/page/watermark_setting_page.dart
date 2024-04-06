@@ -18,9 +18,6 @@ class WatermarkSettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fontSize = storage.read(Constant.kFontSize);
-    final barHight = storage.read(Constant.kBarHight);
-    final logoSize = storage.read(Constant.kLogoSize);
     return Container(
       color: Colors.grey.shade200,
       height: 50.h,
