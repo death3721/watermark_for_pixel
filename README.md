@@ -1,4 +1,4 @@
-# watermark_for_pixel
+# flutter_watermark
 
 A new Flutter project.
 

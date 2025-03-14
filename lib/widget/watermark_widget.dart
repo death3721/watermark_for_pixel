@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:sizer/sizer.dart';
-import 'package:watermark_for_pixel/common/google_logo.dart';
+
+import '../common/google_logo.dart';
 
 class WatermarkWidget extends StatelessWidget {
   WatermarkWidget({
@@ -30,9 +31,7 @@ class WatermarkWidget extends StatelessWidget {
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              left: 16.0,
-            ),
+            padding: const EdgeInsets.only(left: 16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,21 +60,15 @@ class WatermarkWidget extends StatelessWidget {
             height: logoSize.value,
             child: const GoogleLogo(),
           ),
-          const SizedBox(
-            width: 10.0,
-          ),
+          const SizedBox(width: 10.0),
           Container(
             width: 0.5,
             margin: const EdgeInsets.fromLTRB(0, 14, 0, 14),
             color: Colors.grey.shade400,
           ),
-          const SizedBox(
-            width: 10.0,
-          ),
+          const SizedBox(width: 10.0),
           Padding(
-            padding: const EdgeInsets.only(
-              right: 16.0,
-            ),
+            padding: const EdgeInsets.only(right: 16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -84,7 +77,7 @@ class WatermarkWidget extends StatelessWidget {
                   "25mm f/1.89 1/50 ISO56",
                   style: TextStyle(
                     color: fontColor,
-                    fontSize: fontSize.value,
+                    fontSize: fontSize.value - 2,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

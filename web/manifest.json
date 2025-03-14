@@ -1,6 +1,6 @@
 {
-    "name": "watermark_for_pixel",
-    "short_name": "watermark_for_pixel",
+    "name": "flutter_watermark",
+    "short_name": "flutter_watermark",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:watermark_for_pixel/page/about_me_page.dart';
-import 'package:watermark_for_pixel/page/watermark_setting_page.dart';
+import 'about_me_page.dart';
+import 'watermark_setting_page.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -12,9 +11,7 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint("Setting");
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Setting"),
-      ),
+      appBar: AppBar(title: const Text("Setting")),
       body: CupertinoListSection.insetGrouped(
         children: <CupertinoListTile>[
           CupertinoListTile(

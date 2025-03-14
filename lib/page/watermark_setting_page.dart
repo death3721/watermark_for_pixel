@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:watermark_for_pixel/common/constant.dart';
-import 'package:watermark_for_pixel/widget/watermark_widget.dart';
 import 'package:get_storage/get_storage.dart';
+import '../common/constant.dart';
+import '../widget/watermark_widget.dart';
 
 class WatermarkSettingPage extends StatelessWidget {
   WatermarkSettingPage({super.key});

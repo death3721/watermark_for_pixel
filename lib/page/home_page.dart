@@ -6,16 +6,16 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_image_gallery_saver/flutter_image_gallery_saver.dart';
 
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'package:watermark_for_pixel/common/constant.dart';
-import 'package:watermark_for_pixel/common/image_picker.dart';
-import 'package:watermark_for_pixel/widget/watermark_widget.dart';
+import '../common/constant.dart';
+import '../common/image_picker.dart';
+import '../widget/watermark_widget.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -62,9 +62,7 @@ class HomePage extends StatelessWidget {
     final logoSize = storage.read(Constant.kLogoSize);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Pixel Watermark"),
-      ),
+      appBar: AppBar(title: const Text("Pixel Watermark")),
       body: Obx(
         () => Container(
           padding: const EdgeInsets.all(20),
@@ -79,34 +77,37 @@ class HomePage extends StatelessWidget {
                     Container(
                       width: 100.w,
                       color: Colors.indigo.shade100,
-                      child: imagePath.value != ""
-                          ? Image.file(
-                              File(imagePath.value),
-                              fit: BoxFit.fill,
-                            )
-                          : IconButton(
-                              onPressed: () async {
-                                imagePath.value = (await getLocalImage());
-                              },
-                              icon: const Icon(
-                                  Icons.add_photo_alternate_outlined),
-                              highlightColor: Colors.transparent,
-                            ),
+                      child:
+                          imagePath.value != ""
+                              ? Image.file(
+                                File(imagePath.value),
+                                fit: BoxFit.fill,
+                              )
+                              : IconButton(
+                                onPressed: () async {
+                                  imagePath.value = (await getLocalImage());
+                                },
+                                icon: const Icon(
+                                  Icons.add_photo_alternate_outlined,
+                                ),
+                                highlightColor: Colors.transparent,
+                              ),
                     ),
                     WatermarkWidget(
-                      fontSize: fontSize != null
-                          ? RxDouble(fontSize)
-                          : RxDouble(14.0),
-                      barHight: barHight != null
-                          ? RxDouble(barHight)
-                          : RxDouble(48.0),
-                      logoSize: logoSize != null
-                          ? RxDouble(logoSize)
-                          : RxDouble(18.0),
+                      fontSize:
+                          fontSize != null
+                              ? RxDouble(fontSize)
+                              : RxDouble(14.0),
+                      barHight:
+                          barHight != null
+                              ? RxDouble(barHight)
+                              : RxDouble(48.0),
+                      logoSize:
+                          logoSize != null
+                              ? RxDouble(logoSize)
+                              : RxDouble(18.0),
                     ),
-                    Container(
-                      height: 100.0,
-                    ),
+                    Container(height: 100.0),
                   ],
                 ),
               ),
@@ -124,23 +125,17 @@ class HomePage extends StatelessWidget {
                 print("have Permission");
                 // save the photo into gallary
                 Uint8List data = await _getCurrentImageData();
-                await ImageGallerySaver.saveImage(data);
+                await FlutterImageGallerySaver.saveImage(data);
               }
             },
-            child: const Icon(
-              Icons.save_alt_outlined,
-            ),
+            child: const Icon(Icons.save_alt_outlined),
           ),
-          const SizedBox(
-            height: 20.0,
-          ),
+          const SizedBox(height: 20.0),
           FloatingActionButton(
             onPressed: () async {
               imagePath.value = (await getLocalImage());
             },
-            child: const Icon(
-              Icons.add_photo_alternate_outlined,
-            ),
+            child: const Icon(Icons.add_photo_alternate_outlined),
           ),
         ],
       ),
