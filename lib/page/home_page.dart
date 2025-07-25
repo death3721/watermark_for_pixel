@@ -6,7 +6,6 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_image_gallery_saver/flutter_image_gallery_saver.dart';
 
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -16,6 +15,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../common/constant.dart';
 import '../common/image_picker.dart';
 import '../widget/watermark_widget.dart';
+import 'package:path_provider/path_provider.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -125,7 +125,7 @@ class HomePage extends StatelessWidget {
                 print("have Permission");
                 // save the photo into gallary
                 Uint8List data = await _getCurrentImageData();
-                await FlutterImageGallerySaver.saveImage(data);
+                await saveImageToFile(data, "image");
               }
             },
             child: const Icon(Icons.save_alt_outlined),
@@ -141,4 +141,12 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> saveImageToFile(Uint8List data, String fileName) async {
+  final directory = await getApplicationDocumentsDirectory();
+  final path = '${directory.path}/$fileName';
+  final file = File(path);
+  await file.writeAsBytes(data);
+  print('图片已保存到：$path');
 }
